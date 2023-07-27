@@ -31,14 +31,14 @@ def subscribe():
 		"Subscription Record", {"stripe_customer": customer.name, "plan": plan}
 	)
 
-	# if subscription_exists:
-	# 	return {
-	# 		"secret_key": frappe.db.get_value(
-	# 			"Subscription Record",
-	# 			{"stripe_customer": customer.name, "plan": plan},
-	# 			"pi_secret_key",
-	# 		)
-	# 	}
+	if subscription_exists:
+		return {
+			"secret_key": frappe.db.get_value(
+				"Subscription Record",
+				{"stripe_customer": customer.name, "plan": plan},
+				"pi_secret_key",
+			)
+		}
 
 	s = stripe.Subscription.create(
 		customer=customer.customer_id,
